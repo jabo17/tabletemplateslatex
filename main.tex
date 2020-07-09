@@ -1,0 +1,96 @@
+\documentclass[a4paper]{scrbook}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\renewcommand*\familydefault{\sfdefault}
+\usepackage{xurl}
+
+\title{Table Templates}
+\author{Jannick Borowitz}
+\date{July 2020}
+
+%###########
+
+%define colors for the table
+\usepackage[table]{xcolor}
+\usepackage{colortbl}
+\definecolor{header}{RGB}{112, 148, 219}
+%you can define more if you need to
+
+%###########
+
+%commands for table sections
+\usepackage{booktabs}
+\newcommand*{\header}[2]{
+    \toprule
+    \rowcolor{#1} #2 \\
+}
+\newcommand*{\tablemid}{
+    \midrule
+}
+\newcommand*{\tablebottom}{
+    \bottomrule
+}
+
+%###########
+
+% table enviroment
+\usepackage{tabularx}
+\extrarowheight=\aboverulesep
+\addtolength{\extrarowheight}{\belowrulesep}
+\aboverulesep=0pt
+\belowrulesep=0pt
+\newenvironment{specialtabular}[4]{
+    \rowcolors{2}{#3}{#4}
+    \tabularx{#1}{#2}
+}
+{
+    \endtabularx
+}
+
+%###########
+
+\begin{document}
+
+\maketitle
+
+\chapter{Table Templates}
+\section{How to use \texttt{specialtabular}}
+
+% Position table
+% https://www.overleaf.com/learn/latex/positioning_images_and_tables#Positioning_tables
+\begin{table}[h!]
+
+% for tabularx see
+% http://www.ctex.org/documents/packages/table/tabularx.pdf
+\begin{specialtabular}{\textwidth}{XXX}{black!5}{black!10}
+
+\header{header}{
+\textbf{Header 1} & \textbf{Header 2} & \textbf{Header 3}
+}\tablemid
+% for colored cells see
+Content 1 & \cellcolor{white}Content 2 & Content 3 \\ \tablebottom
+\end{specialtabular}
+\caption{specialtabular with table enviroment}
+\end{table}
+
+\newpage
+\chapter{Sources and helpful Links}
+This table template documentation is based on the following articles:
+\begin{table}[h!]
+    \centering
+    \begin{specialtabular}{\textwidth}{XX}{black!5}{black!10}
+        \header{header}{
+            Helpful for & Link
+        }\tablemid
+        Position table-enviroment & \url{https://www.overleaf.com/learn/latex/positioning_images_and_tables#Positioning_tables} \\
+        How to color table with colorbtl and booktabs & \url{https://texblog.org/2017/12/12/color-table-series-part-1-introduction-colortbl-package/} \\
+        table,wraptable and largetable enviroments &
+        \url{https://www.overleaf.com/learn/latex/Tables#Tables_with_fixed_length} \\
+        \tablebottom
+    \end{specialtabular}
+    \caption{helpful links}
+    \label{tab:my_label}
+\end{table}
+
+\end{document}
